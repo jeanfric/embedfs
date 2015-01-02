@@ -33,8 +33,8 @@ type embedFileInfo struct {
 
 // New returns an http.FileSystem constructed from m, a map of string
 // paths to string contents.  The m map must not be modified after
-// calling New.  The map keys must use slash ('/') as path separator,
-// and all paths must being with '/'.  For example:
+// calling New.  The map keys must use slash ("/") as path separator,
+// and all paths must being with "/".  For example:
 //
 //	m := make(map[string]string)
 //	m["/index.html"] = "<html><head>..."
@@ -69,8 +69,8 @@ func New(m map[string]string) http.FileSystem {
 		}
 
 		for k, _ := range dirs {
-			// Skip recording '/' as containing '/' with
-			// the 'k != d' test.
+			// Skip recording "/" as containing "/" with
+			// the "k != d" test.
 			if k != d && dirname(k) == d {
 				fis = append(fis, &embedFileInfo{
 					len:   0,
@@ -148,7 +148,7 @@ func (fi *embedFileInfo) Size() int64 { return fi.len }
 func (fi *embedFileInfo) Name() string { return fi.name }
 
 // Dirname removes the last part (rightmost) of the path, returning
-// the containing directory part.  If the path is '/', it returns '/'.
+// the containing directory part.  If the path is "/", it returns "/".
 func dirname(f string) string {
 	i := len(f) - 1
 	for f[i] != '/' && i >= 0 {
@@ -161,7 +161,7 @@ func dirname(f string) string {
 }
 
 // Basename removes the directory part of f, returning just the last
-// (rightmost) part of the path.  If f is '/', it returns '/'.
+// (rightmost) part of the path.  If f is "/", it returns "/".
 func basename(f string) string {
 	if f == "/" {
 		return "/"
